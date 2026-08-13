@@ -6,9 +6,11 @@ A full-stack application that merges **Open Library** data with **Google Books**
 
 ## Project Structure
 
+```text
 Book explorer/
 ├── backend/ # Express API (TypeScript, entity-based architecture)
 └── frontend/ # Next.js React web application
+```
 
 ---
 
@@ -23,29 +25,32 @@ Book explorer/
 
 ### 1. Set Up & Run the Backend
 
-# Navigate to backend directory
+Navigate to the backend directory:
 
+```bash
 cd backend
+```
 
-# Install dependencies
+Install dependencies:
 
+```bash
 npm install
-
-# Create environment configuration file (if not created already)
+```
 
 Create a `backend/.env` file:
 
-````env
+```env
 PORT=4000
 CORS_ORIGIN=http://localhost:3000
 GOOGLE_BOOKS_API_KEY=your_google_books_api_key_here
 ENRICHMENT_CONCURRENCY=5
-
+```
 
 Start the backend development server:
 
+```bash
 npm run dev
-
+```
 
 > The API backend will start listening at **`http://localhost:4000`**.
 
@@ -53,27 +58,28 @@ npm run dev
 
 ### 2. Set Up & Run the Frontend
 
-Open a new terminal window:
+Open a new terminal window and navigate to the frontend directory:
 
 ```bash
-# Navigate to frontend directory
 cd frontend
+```
 
-# Install dependencies
+Install dependencies:
+
+```bash
 npm install
-
-# Create local environment configuration file
 ```
 
 Create a `frontend/.env.local` file:
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:4000
 ```
 
 Start the frontend development server:
 
+```bash
 npm run dev
-
+```
 
 > The frontend web application will start at **`http://localhost:3000`**.
-````
