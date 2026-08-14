@@ -14,7 +14,7 @@ import { BookDetailModal } from "@/components/BookDetailModal";
 import { fetchBooks } from "@/lib/api";
 import { Book, BooksResponse } from "@/lib/types";
 
-const PAGE_SIZE = 18;
+const PAGE_SIZE = 15;
 
 export default function HomePage() {
   const [query, setQuery] = useState("");
@@ -23,7 +23,6 @@ export default function HomePage() {
   const [status, setStatus] = useState<"idle" | "loading" | "error">("loading");
   const [errorMessage, setErrorMessage] = useState("");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const [requestId, setRequestId] = useState(0);
 
   const load = useCallback((q: string, p: number) => {
     setStatus("loading");
@@ -38,20 +37,14 @@ export default function HomePage() {
         setStatus("idle");
       })
       .catch((err: Error) => {
-        if (err.name === "AbortError") return;
-
         setErrorMessage(err.message || "Could not reach the catalog service.");
-
         setStatus("error");
       });
   }, []);
 
   useEffect(() => {
     load(query, page);
-
-    // requestId allows retry without changing query/page
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, page, requestId, load]);
+  }, [query, page, load]);
 
   function handleSearch(value: string) {
     setPage(1);
@@ -185,6 +178,7 @@ export default function HomePage() {
                   sx={{
                     color: "text.primary",
                     fontWeight: 700,
+                    mr: 0.5,
                   }}
                 >
                   {data.totalResults.toLocaleString()}
@@ -198,9 +192,10 @@ export default function HomePage() {
                       sx={{
                         color: "primary.main",
                         fontWeight: 700,
+                        ml: 0.5,
                       }}
                     >
-                      "{data.query}"
+                      " {data.query} "
                     </Box>
                   </>
                 )}
@@ -254,10 +249,7 @@ export default function HomePage() {
               justifyContent: "center",
             }}
           >
-            <ErrorState
-              message={errorMessage}
-              onRetry={() => setRequestId((n) => n + 1)}
-            />
+            <ErrorState message={errorMessage} />
           </Box>
         )}
 
@@ -299,7 +291,6 @@ export default function HomePage() {
                 display: "flex",
                 justifyContent: "center",
                 alignContent: "center",
-                backgroundColor: "background.paper",
               }}
             >
               <Pagination

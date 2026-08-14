@@ -29,8 +29,8 @@ export function Pagination({
       sx={{
         mt: 5,
         width: "100%",
-        alignItems: { xs: "center", sm: "flex-start" },
-        justifyContent: { xs: "center", sm: "flex-start" },
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       {/* Previous */}
