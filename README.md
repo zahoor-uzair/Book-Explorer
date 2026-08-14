@@ -21,7 +21,7 @@ Book explorer/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Set Up & Run the Backend
 
