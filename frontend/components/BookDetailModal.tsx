@@ -46,17 +46,6 @@ export function BookDetailModal({
           },
         },
       }}
-      PaperProps={{
-        sx: {
-          borderRadius: 3,
-          border: "1px solid",
-          borderColor: "divider",
-          bgcolor: "background.paper",
-          backgroundImage: "none",
-          boxShadow: "0 25px 70px rgba(24, 38, 61, 0.25)",
-          overflow: "hidden",
-        },
-      }}
     >
       {/* Header / Close */}
       <Box
@@ -126,9 +115,6 @@ export function BookDetailModal({
               border: "1px solid",
               borderColor: "divider",
               borderRadius: 1.5,
-
-              boxShadow:
-                "6px 8px 0 rgba(38, 58, 91, 0.06), 0 10px 25px rgba(0,0,0,0.12)",
             }}
           >
             {book.coverUrl ? (

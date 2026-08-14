@@ -1,5 +1,3 @@
-"use client";
-
 import { BookRating } from "@/lib/types";
 import { Box, Stack, Typography } from "@mui/material";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";

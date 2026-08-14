@@ -1,12 +1,8 @@
-"use client";
-
-import React from "react";
 import {
   Box,
   IconButton,
   Pagination as MuiPagination,
   Stack,
-  Typography,
 } from "@mui/material";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";

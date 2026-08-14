@@ -24,26 +24,40 @@ export default function HomePage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-  const load = useCallback((q: string, p: number) => {
-    setStatus("loading");
+  const load = useCallback(async (q: string, p: number) => {
+    try {
+      const res = await fetchBooks({
+        q,
+        page: p,
+        limit: PAGE_SIZE,
+      });
 
-    fetchBooks({
-      q,
-      page: p,
-      limit: PAGE_SIZE,
-    })
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    load(query, page)
       .then((res) => {
+        if (cancelled) return;
+
         setData(res);
         setStatus("idle");
       })
       .catch((err: Error) => {
+        if (cancelled) return;
+
         setErrorMessage(err.message || "Could not reach the catalog service.");
         setStatus("error");
       });
-  }, []);
 
-  useEffect(() => {
-    load(query, page);
+    return () => {
+      cancelled = true;
+    };
   }, [query, page, load]);
 
   function handleSearch(value: string) {
@@ -195,7 +209,7 @@ export default function HomePage() {
                         ml: 0.5,
                       }}
                     >
-                      " {data.query} "
+                      {`"${data.query}"`}
                     </Box>
                   </>
                 )}
