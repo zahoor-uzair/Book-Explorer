@@ -76,12 +76,37 @@ export async function getTrending({
   return { totalResults: data.works?.length || 0, books };
 }
 
+//fir now we are using local state for caching the ratings fetched from Google Books API. In future we can use Redis or any other caching mechanism to store the ratings for a longer period of time.
+const googleBooksCache = new Map<
+  string,
+  { data: GoogleRating | null; expiresAt: number }
+>();
+
+const GOOGLE_CACHE_TIME = 1000 * 60 * 60; // 1 hour
+
+// function to fetch book ratings from Google Books API based on the book title
+// First check record in cache, if not found, fetch from Google Books API and store in cache
 async function fetchVolumes(query: string): Promise<GoogleRating | null> {
+  const cacheKey = query.trim().toLowerCase();
+
+  // Check cache
+  const cached = googleBooksCache.get(cacheKey);
+
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.data;
+  }
+
+  // Remove expired cache
+  if (cached) {
+    googleBooksCache.delete(cacheKey);
+  }
+
   try {
     const params: Record<string, string> = {
       q: encodeURIComponent(query),
       maxResults: "1",
     };
+
     if (config.googleBooksApiKey) {
       params.key = config.googleBooksApiKey;
     }
@@ -92,7 +117,15 @@ async function fetchVolumes(query: string): Promise<GoogleRating | null> {
     );
 
     const first = data.items?.[0];
-    return first ? normalizeVolume(first.volumeInfo) : null;
+    const result = first ? normalizeVolume(first.volumeInfo) : null;
+
+    // Cache result, including null
+    googleBooksCache.set(cacheKey, {
+      data: result,
+      expiresAt: Date.now() + GOOGLE_CACHE_TIME,
+    });
+
+    return result;
   } catch {
     return null;
   }
