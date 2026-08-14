@@ -23,7 +23,7 @@ export interface Book {
 
 export interface BooksResponse {
   query: string | null;
-  mode: 'search' | 'trending';
+  mode: "search" | "trending";
   page: number;
   limit: number;
   totalResults: number;

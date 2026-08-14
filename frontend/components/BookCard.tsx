@@ -59,7 +59,7 @@ export function BookCard({
         onClick={() => onOpen(book)}
         sx={{
           height: "100%",
-          borderRadius: 2.5,
+          borderRadius: 1.5,
           "&:hover": {
             bgcolor: "transparent",
           },
@@ -244,8 +244,8 @@ export function BookCard({
             className="arrow-icon"
             sx={{
               position: "absolute",
-              right: 14,
-              bottom: 14,
+              right: 10,
+              top: 14,
               fontSize: 18,
               color: "primary.main",
               opacity: 0,

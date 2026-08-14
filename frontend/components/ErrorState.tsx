@@ -1,13 +1,6 @@
-import { Stack, Typography, Button } from "@mui/material";
-import AutoStoriesRoundedIcon from "@mui/icons-material/AutoStoriesRounded";
+import { Stack, Typography } from "@mui/material";
 
-export function ErrorState({
-  message,
-  onRetry,
-}: {
-  message: string;
-  onRetry: () => void;
-}) {
+export function ErrorState({ message }: { message: string }) {
   return (
     <Stack
       spacing={1.5}
@@ -22,9 +15,6 @@ export function ErrorState({
       <Typography variant="h6" color="text.secondary">
         {message || "An error occurred while fetching books."}
       </Typography>
-      <Button variant="contained" onClick={onRetry}>
-        Retry
-      </Button>
     </Stack>
   );
 }

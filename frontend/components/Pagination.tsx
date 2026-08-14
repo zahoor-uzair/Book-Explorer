@@ -1,12 +1,8 @@
-"use client";
-
-import React from "react";
 import {
   Box,
   IconButton,
   Pagination as MuiPagination,
   Stack,
-  Typography,
 } from "@mui/material";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
@@ -29,8 +25,8 @@ export function Pagination({
       sx={{
         mt: 5,
         width: "100%",
-        alignItems: { xs: "center", sm: "flex-start" },
-        justifyContent: { xs: "center", sm: "flex-start" },
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       {/* Previous */}
